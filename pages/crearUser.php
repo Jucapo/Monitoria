@@ -9,18 +9,11 @@ if ($_SESSION["autenticado"] != "SI")
 	<head>
 		<title>Crear Usuario</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-panels.min.js"></script>
-		<script src="js/init.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>		
 		<link rel="stylesheet" href="../styles/formulario.css" />
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
-        <link rel="stylesheet" href="../styles/style.css" />
-        <link rel="stylesheet" href="../styles/style-desktop.css" />
-
-
+        <link rel="stylesheet" href="../styles/style.css" />        
 	</head>
 	<body class="homepage">
 

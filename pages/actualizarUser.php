@@ -1,30 +1,23 @@
 <!DOCTYPE HTML>
 
 <?php                                                                                                       
-session_start();
-include "../conexion.php";
-if ($_SESSION["autenticado"] != "SI")
-    {
-      header('Location: index.php?mensaje=3');
-    }
+	session_start();
+	include "../conexion.php";
+	if ($_SESSION["autenticado"] != "SI")
+		{
+		header('Location: index.php?mensaje=3');
+		}
 ?> 
 
 <html>
 	<head>
 		<title>AGENTE UNICAUCA</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-panels.min.js"></script>
-		<script src="js/init.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>		
 		<link rel="stylesheet" href="../styles/formulario.css" />
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
-        <link rel="stylesheet" href="../styles/style.css" />
-        <link rel="stylesheet" href="../styles/style-desktop.css" />
-
-
+        <link rel="stylesheet" href="../styles/style.css" />     
 	</head>
 	<body class="homepage">
 
@@ -75,7 +68,7 @@ if ($_SESSION["autenticado"] != "SI")
 									</li>
 									<li>
 										<input type=hidden value="1" name="enviado">
-										<input type=submit value="Buscar" name="Enviar">
+										<button class="submit" type="submit" >Buscar</button>
 									</li>
 								</ul>
 							</form>	
@@ -94,6 +87,7 @@ if ($_SESSION["autenticado"] != "SI")
 								$result1 = $mysqli->query($sql);
 								while($row1 = $result1->fetch_array(MYSQLI_NUM))
 									{			
+										$id = $row1[0];
 										$login = $row1[1];
 										$noDoc = $row1[2];
 										$tipoUsuario =$row1[4];
@@ -118,7 +112,7 @@ if ($_SESSION["autenticado"] != "SI")
 								{
 												
 									echo '
-									<form name="contact_form" class="contact_form" action=".php" method="post">
+									<form name="contact_form" class="contact_form" action="../funtions/actualizarUser.php" method="post">
 										<ul>
 											<li>
 												<h2>USUARIO A MODIFICAR</h2>
@@ -231,6 +225,10 @@ if ($_SESSION["autenticado"] != "SI")
 											<label for="oficina">Oficina:</label>
 											<input name="oficina" value="'.$oficina.'" type="text"   />
 											<span class="required_notification">max. 50 caracteres</span>	
+										</li>	
+										<li>
+											<input type=hidden value="'.$id.'" name="idUser">
+											<button class="submit" type="submit">Actualizar Usuario</button>
 										</li>																																
 										<ul>
 									</form>';

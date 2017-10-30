@@ -25,11 +25,11 @@
 	$mensaje = $_GET["mensaje"];
 	if ($_GET["mensaje"]!=""){              
 		if ($mensaje == 1)
-			echo "¡¡ERROR!! La contraseña es erronea.";
+			echo "<h1>¡¡ERROR!! La contraseña es erronea.</h1>";
 		if ($mensaje == 2)
-			echo "No hay usuarios con el login ingresado.";
+			echo " <h1>No hay usuarios con el login ingresado.</h1>";
 		if ($mensaje == 3)
-			echo "NO HA INICIADO SESION";
+			echo "<h1>NO HA INICIADO SESION</h1>";
 	}
 	}
 	?>

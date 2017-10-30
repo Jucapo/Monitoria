@@ -10,18 +10,11 @@ if ($_SESSION["autenticado"] != "SI")
 	<head>
 		<title>AGENTE UNICAUCA</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-panels.min.js"></script>
-		<script src="js/init.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>	
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
         <link rel="stylesheet" href="../styles/style.css" />
-        <link rel="stylesheet" href="../styles/style-desktop.css" />
-
-
 	</head>
+
 	<body class="homepage">
 
 		<!-- Header --> 
@@ -49,15 +42,26 @@ if ($_SESSION["autenticado"] != "SI")
 
 		<div id="featured">
 			<div class="container">
-				<div class="row">		
+				<div text-center>		
 
 				<?php
 				if (isset($_GET["mensaje"])){
 				$mensaje = $_GET["mensaje"];
 				if ($_GET["mensaje"]!=""){              
 					if ($mensaje == 1)
-						echo "Usurio Registrado correctamente";
-					}
+						echo "<h1>USUARIO REGISTRADO CORRECTAMENTE</h1>";
+					if ($mensaje == 2)
+						echo "<h1>ERROR AL REGISTRAR USUARIO</h1>";
+					if ($mensaje == 3)
+						echo "<h1>CONTRASEÑA ACTUALIZADA CORRECTAMENTE</h1>";
+					if ($mensaje == 4)
+						echo "<h1>ERROR AL ACTUALIZAR CONTRASEÑA</h1>";
+					if ($mensaje == 5)
+						echo "<h1>USUARIO ACTUALIZADO CORRECTAMENTE</h1>";
+					if ($mensaje == 6)
+						echo "<h1>ERROR AL ACTUALIZAR USUARIO</h1>";
+	
+				}	
 				}
 					?>		
 				</div>

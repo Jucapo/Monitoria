@@ -13,16 +13,11 @@ if ($_SESSION["autenticado"] != "SI")
 	<head>
 		<title>Cambiar Password</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-panels.min.js"></script>
-		<script src="js/init.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>		
 		<link rel="stylesheet" href="../styles/formulario.css" />
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
-        <link rel="stylesheet" href="../styles/style.css" />
-        <link rel="stylesheet" href="../styles/style-desktop.css" />
+        <link rel="stylesheet" href="../styles/style.css" />     
 	</head>
 
 	<body class="homepage">
@@ -73,7 +68,7 @@ if ($_SESSION["autenticado"] != "SI")
 								</li>
 								<li>
 									<input type=hidden value="1" name="enviado">
-									<input type=submit value="Buscar" name="Enviar">
+									<button class="submit" type="submit" >Buscar</button>
 								</li>
 							</ul>
 						</form>	
@@ -92,6 +87,7 @@ if ($_SESSION["autenticado"] != "SI")
 							$result1 = $mysqli->query($sql);
 							while($row1 = $result1->fetch_array(MYSQLI_NUM))
 								{			
+									$id = $row1[0]; 
 									$password = $row1[3];								
 									$nombre = $row1[5];
 									$apellidos = $row1[6];
@@ -102,7 +98,7 @@ if ($_SESSION["autenticado"] != "SI")
 							{
 											
 								echo '
-								<form name="contact_form" class="contact_form" action="cambiarPassword.php" method="post">
+								<form name="contact_form" class="contact_form" action="../funtions/cambiarPassword.php" method="post">
 									<ul>
 										<li>
 											<h2>USUARIO A MODIFICAR CONTRASEÑA</h2>
@@ -121,8 +117,12 @@ if ($_SESSION["autenticado"] != "SI")
 										</li>		
 										<li>
 											<label for="passwordc">Confirmar Contraseña:</label>
-											<input name="passwordc" value="" " type="text" required/>	
-										</li>																																
+											<input name="passwordc"  type="text" required/>	
+										</li>		
+										<li>
+										<input type=hidden value="'.$id.'" name="idUser">
+										<button class="submit" type="submit">Actualizar Contraseña</button>
+										</li>																														
 									<ul>
 								</form>';
 							}

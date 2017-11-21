@@ -27,6 +27,14 @@
     
         if ($ldapbind) {
             echo "LDAP bind anonymous successful...";
+            $filter = "(uid=jorge)";
+            $result = ldap_search($ldapconn,"dc=unicauca,dc=edu,dc=co",$filter) or exit("Unable to search");
+            $entries = ldap_get_entries($ldapconn, $result);
+            
+            print "<pre>";
+            print_r ($entries);
+            print "</pre>";
+
         } else {
             echo "LDAP bind anonymous failed...";
         }

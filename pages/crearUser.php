@@ -43,7 +43,7 @@ if ($_SESSION["autenticado"] != "SI")
 		<div id="featured">
 			<div class="container">
 				<div class="formulario">				
-					<form name="contact_form" class="contact_form" action="../funtions/crearUser.php" method="post">
+					<form name="contact_form" class="contact_form" action="../addUser/crearUser.php" method="post">
 						<ul>
     						<li>
 								<h2>Crear Usuario</h2>
@@ -53,8 +53,8 @@ if ($_SESSION["autenticado"] != "SI")
 								<label for="tipoUsuario">Tipo de Usuario:</label>
 								<select name="tipoUsuario" required>
 									<option selected value="">Elegir un tipo de Usuario</option>
-									<option value="Estudiante pregrado">Estudiante pregrado</option>
-									<option value="Estudiante posgrado">Estudiante posgrado</option>
+									<option value="Pregrado">Estudiante pregrado</option>
+									<option value="Posgrado">Estudiante posgrado</option>
 									<option value="Exalumno">Exalumno</option>
 									<option value="Docente">Docente</option>
 									<option value="Docente pensionado">Docente pensionado</option>

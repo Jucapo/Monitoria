@@ -1,6 +1,6 @@
 <?php
 
-/*********Modulo para la Creacion de  nuevos Usuarios***********/
+/*********Modulo para la Creacion de  nuevos Usuarios APACHE***********/
 
   //Variables con las que se creeara el nuevo Usuario
   $login = $_POST["login"];

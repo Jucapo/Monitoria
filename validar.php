@@ -1,40 +1,41 @@
 <?php
-include ("conexion.php");
-                                                       
+
+
 $login = $_POST["login"];
 $password = $_POST["password"];
 
 session_start();
 
-$mysqli = new mysqli($host, $user, $pw, $db);
-$sql = "SELECT * from usuarios where login = '$login'";
+    $ldaphost = "10.200.1.138";  // servidor LDAP
+    $ldapport = 389;            // puerto del servidor LDAP
 
-$result = $mysqli->query($sql);
-$row = $result->fetch_array(MYSQLI_NUM);
-$numero_filas = $result->num_rows;
+    $user = "cn=".$login.",dc=unicauca,dc=edu,dc=co";
+    $pswd = $password;
 
-if ($numero_filas > 0)
-  {
-    $passwdc = $row[3];
-    if ($password==$passwdc)
-      {
-        $_SESSION["autenticado"]= "SI";  
-		$id=$row[0];
-        $login = $row[1];
-		$documento=$row[2];
-        $tipoUser = $row[4];	
-        if($tipoUser=="admin"){
-            header("Location: pages/admin.php");	
+    // Conexión al servidor LDAP
+    $ldapconn = ldap_connect($ldaphost, $ldapport)
+        or die("Imposible conectar al servidor $ldaphost");
+
+    if ($ldapconn) {
+
+        // Especifico la versión del protocolo LDAP
+        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3)
+            or die ("Imposible asignar el Protocolo LDAP");
+        
+        // autenticación con usuario
+        $ldapbind = ldap_bind($ldapconn,$user,$pswd);
+
+
+        if ($ldapbind) {         
+            header("Location: pages/agente.php");	                    
+        } 
+        else{
+            header('Location: index.php?mensaje=2');
         }
-        elseif($tipoUser=="agente"){
-            header("Location: pages/agente.php");	
-        }       	  	
-      } 
-      else{
-     header('Location: index.php?mensaje=1');
-      }
-  }
-else{
-    header('Location: index.php?mensaje=2');
-    }  
+    }
+    else {
+        header('Location: index.php?mensaje=1');
+    }
+
+
 ?>

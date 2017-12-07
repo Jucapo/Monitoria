@@ -3,12 +3,10 @@
 
 /*********Modulo para la Creacion de  nuevos Usuarios LDAP***********/
 
-
     $ldaphost = "10.200.1.138";
     $ldapport = 389;            
     $user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
     $pswd = "adminupdate123";
-
 
     // ATRIBUTOS DEL FORMULARIO
 
@@ -45,7 +43,7 @@
             //echo "LDAP bind successful...";
             
             //
-            $dn = "uid=jcposso,ou=Pregrado,ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+            $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
             
             //ObjectClass
             $info["objectClass"][0] = "inetLocalMailRecipient";
@@ -59,53 +57,72 @@
             $info["objectClass"][8] = "qmailUser";
 
             // Unicos
-            $info["uid"] = "jcposso";     //Login  
-            $info["employeeNumber"] = "1115083690"; // No Documento
+            $info["uid"] = $uid;     //Login  
+            $info["employeeNumber"] = $noDoc; // No Documento
+
+            if($tipoUsuario == "Pregrado")
+                $info["gidNumber"] = "30000";  
+            elseif ($tipoUsuario == "Posgrado") 
+                $info["gidNumber"] = "30001"; 
+            elseif ($tipoUsuario == "Egresados") 
+                $info["gidNumber"] = "30002";     
+            elseif ($tipoUsuario == "Funcionario") 
+                $info["gidNumber"] = "30003";
+            elseif ($tipoUsuario == "Contratista") 
+                $info["gidNumber"] = "30004";
+            elseif ($tipoUsuario == "Docente") 
+                $info["gidNumber"] = "30005";
+            elseif ($tipoUsuario == "GruposI") 
+                $info["gidNumber"] = "30006";
+            elseif ($tipoUsuario == "GruposA") 
+                $info["gidNumber"] = "30007";
+            elseif ($tipoUsuario == "Dependancia") 
+                $info["gidNumber"] = "30008";
+            elseif ($tipoUsuario == "Evento") 
+                $info["gidNumber"] = "30009";
+            elseif ($tipoUsuario == "Adscritas") 
+                $info["gidNumber"] = "30010";
+            elseif ($tipoUsuario == "Especial") 
+                $info["gidNumber"] = "30011";
+            elseif ($tipoUsuario == "PensionadoF") 
+                $info["gidNumber"] = "30013";
+        
+            if($tipoUsuario == "Pregrado" ||$tipoUsuario == "Posgrado" )
+                $info["loginShell"] = "afrodita.unicauca.edu.co"; 
+            else
+                $info["loginShell"] = "/bin/false"; 
       
             //Obligatorias
-            $info["uidNumber"] = "100612"; //AU
-            $info["gidNumber"] = "336699";            
-            $info["homeDirectory"] = "/home/Pregrado/";   //   home/$employeeType/$uid
+            $info["uidNumber"] = "100612"; //AU          
+            $info["homeDirectory"] = "/home/".$employeeType."/".$uid;   //   home/$employeeType/$uid
   
             //atributos
-            $info["employeeType"] = "3"; // Tipo de usuario
-            $info["givenName"] = "Juan Camilo";  //nombre
-            $info["sn"] = "Posso Ponce"; // Apellidos
-            $info["cn"] = "Juan Camilo Posso Ponce"; // Nombre completo
-            $info["gecos"] = "Juan Camilo Posso Ponce"; // Nombre completo           
-            $info["docNumber"] = "100612020201"; //codigo                                
-            $info["host"] = "atenea.unicauca.edu.co"; //host
-            $info["loginShell"] = "/bin/false"; // si es pregrado o posgrado afrodita.unicauca.edu.co     
-            $info["mail"] = "jcposso@unicauca.edu.co";  // $uid@unicauca.edu.co
-            $info["mailLocalAddress"] = "jcposso@unicauca.edu.co";     // $uid@unicauca.edu.co      
-            $info["mailAlternateAddress"] = "jucapo05@gmail.com"; //mail alternatico
+            $info["employeeType"] = $tipoUsuario; // Tipo de usuario
+            $info["givenName"] = $nombre;  //nombre
+            $info["sn"] = $apellidos; // Apellidos
+            $info["cn"] =  $nombre." ".$apellidos; // Nombre completo
+            $info["gecos"] = $nombre." ".$apellidos;; // Nombre completo           
+            $info["docNumber"] = $codigo ; //codigo                                
+            $info["host"] = "atenea.unicauca.edu.co"; //host         
+            $info["mail"] = $uid."@unicauca.edu.co";  // $uid@unicauca.edu.co
+            $info["mailLocalAddress"] =  $uid."@unicauca.edu.co";     // $uid@unicauca.edu.co      
+            $info["mailAlternateAddress"] = $emailAlt; //mail alternatico
             $info["mailHost"] = "atenea.unicauca.edu.co"; // igual al host          
             $info["mailRoutingAddress"] = "jcposso@atenea.unicauca.edu.co";  // $iud@mailHost
-            $info["userPassword"] = "Juc@po0512"; // Password cifrado
-            //$info["co"] = "co"; // pais solo se ponen 2 letras dependiendo del pais
-            $info["streetAddress"] = "Carrera 2A no 3n-55"; //direccion 
-            $info["l"] = "Popayan"; //ciudad       
-            $info["mobile"] = "3155418508";
+            $info["userPassword"] = $password; // Password cifrado
+            //$info["country"] = "co"; // pais solo se ponen 2 letras dependiendo del pais
+            $info["streetAddress"] = $direccion; //direccion 
+            $info["l"] = $municipio; //ciudad       
+            $info["mobile"] = $telefono;
             $info["telephoneNumber"] = "8233639"; // numero de telefono  
-                                    
-            //    gidNumber
-            //  30000-Pregrado
-            //  30001-Posgrado
-            //  30002-Egresados
-            //  30003-Funcionarios
-            //  30004-Contratistas
-            //  30005-Docentes
-            //  30006-GruposL
-            //  30007-GruposA
-            //  30008-Dependencias
-            //  30009-Eventos
-            //  30010-Adscritas
-            //  30011-Especiales
-            //  30012-
-            //  30013-PencionadosF
-        
+
             $add = ldap_add($ldapconn, $dn, $info);
 
+            if ($add){
+                header("Location: ../pages/agente.php?mensaje=1");
+              }
+              else   
+                header("Location: ../pages/agente.php?mensaje=2");
         } else {
             echo "LDAP bind anonymous failed...";
         }

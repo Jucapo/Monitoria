@@ -43,30 +43,29 @@ if ($_SESSION["autenticado"] != "SI")
 		<div id="featured">
 			<div class="container">
 				<div class="formulario">				
-					<form name="contact_form" class="contact_form" action="../addUser/crearUser.php" method="post">
+					<form name="contact_form" class="contact_form" action="../funtions/addUser.php" method="post">
 						<ul>
     						<li>
 								<h2>Crear Usuario</h2>
 								<span class="required_notification">* Datos Requeridos</span>
 							</li>
-							<li>
+							<li> 
 								<label for="tipoUsuario">Tipo de Usuario:</label>
 								<select name="tipoUsuario" required>
 									<option selected value="">Elegir un tipo de Usuario</option>
 									<option value="Pregrado">Estudiante pregrado</option>
 									<option value="Posgrado">Estudiante posgrado</option>
-									<option value="Exalumno">Exalumno</option>
+									<option value="Egresados">Egresado</option>
 									<option value="Docente">Docente</option>
-									<option value="Docente pensionado">Docente pensionado</option>
 									<option value="Funcionario">Funcionario</option>
-									<option value="Funcionario pensionado">Funcionario pensionado</option>
-									<option value="Contratista">Contratista</option>									
-									<option value="Dependencia">Dependencia</option>
-									<option value="Grupo Investigacion">Grupo Investigacion</option>
-									<option value="Grupo Actividades">Grupo Actividades</option>
-									<option value="Eventos">Eventos</option>
-									<option value="EntidadAdscrita">EntidadAdscrita</option>
-									<option value="Caso Especial">Caso Especial</option>									
+									<option value="PensionadoF">Funcionario pensionado</option>
+									<option value="Contratista">Contratista</option>
+									<option value="GruposI">Grupo Investigacion</option>
+									<option value="GruposA">Grupo Actividades</option>
+									<option value="Dependancia">Dependancia</option>
+									<option value="Evento">Eventos</option>
+									<option value="Adscritas">Entidad Adscrita</option>
+									<option value="Especial">Caso Especial</option>									
 								</select>
 							</li>
 							<li>

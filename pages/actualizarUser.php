@@ -1,13 +1,5 @@
 <!DOCTYPE HTML>
 
-<?php                                                                                                       
-	session_start();
-	include "../conexion.php";
-	if ($_SESSION["autenticado"] != "SI")
-		{
-		header('Location: index.php?mensaje=3');
-		}
-?> 
 
 <html>
 	<head>

@@ -3,6 +3,7 @@
 
 /*********Modulo para la Creacion de  nuevos Usuarios LDAP***********/
 
+    //Agente que modifica
     $ldaphost = "10.200.1.138";
     $ldapport = 389;            
     $user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
@@ -42,7 +43,7 @@
         if ($ldapbind) {
             //echo "LDAP bind successful...";
             
-            //
+            //Ruta del directorio del  usuario que se agrega
             $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
             
             //ObjectClass

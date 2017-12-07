@@ -24,16 +24,21 @@
 
         if ($ldapbind) {
             echo "LDAP bind successful...";
-            
-            
+ 
            // _________________________Consultar Usuario__________________________
             
            $dn_consulta = "dc=unicauca,dc=edu,dc=co";
             $filter = "(uid=jcposso)";
+
             $result = ldap_search($ldapconn,$dn_consulta,$filter) or exit("Unable to search");
             $entries = ldap_get_entries($ldapconn, $result);
+
+
             print "<pre>";
-            print_r ($entries);
+            print_r ($entries[0]["userpassword"][0]);
+            print_r ($entries[0]["givenname"][0]);
+            print_r ($entries[0]["sn"][0]);
+            print_r ($entries[0]["uidnumber"][0]);
             print "</pre>";
             
 

@@ -1,14 +1,5 @@
 <!DOCTYPE HTML>
 
-<?php                                                                                                       
-session_start();
-include "../conexion.php";
-if ($_SESSION["autenticado"] != "SI")
-    {
-      header('Location: index.php?mensaje=3');
-    }
-?> 
-
 <html>
 	<head>
 		<title>Cambiar Password</title>
@@ -75,65 +66,80 @@ if ($_SESSION["autenticado"] != "SI")
 						<?php
 					}
 					else{
-						$enviado = $_POST["enviado"];
-						$login = $_POST["login"];
-						$codigo = $_POST["codigo"];
-						$noDoc = $_POST["noDoc"];
-									
-						if ($enviado == 1)
-						{										
-							$mysqli = new mysqli($host, $user, $pw, $db);
-							$sql = "SELECT * FROM usuarios WHERE (login='$login' || codigo='$codigo' || noDoc ='$noDoc')";
-							$result1 = $mysqli->query($sql);
-							while($row1 = $result1->fetch_array(MYSQLI_NUM))
-								{			
-									$id = $row1[0]; 
-									$password = $row1[3];								
-									$nombre = $row1[5];
-									$apellidos = $row1[6];
-								}
-							
-							$numero_filas = $result1->num_rows;
-							if ($numero_filas > 0)
-							{
-											
-								echo '
-								<form name="contact_form" class="contact_form" action="../funtions/cambiarPassword.php" method="post">
-									<ul>
-										<li>
-											<h2>USUARIO A MODIFICAR CONTRASEÑA</h2>
-										</li>	
-										<li>
-											<label for="nombre">Nombre:</label>
-											<input name="nombre" readonly="readonly" value="'.$nombre.'" " type="text" required/>	
-										</li>
-										<li>
-											<label for="apellidos">Apellidos:</label>
-											<input name="apellidos"readonly="readonly"  value="'.$apellidos.'" " type="text" required/>	
-										</li>	
-										<li>
-											<label for="password">Contraseña:</label>
-											<input name="password" value="'.$password.'" " type="text" required/>	
-										</li>		
-										<li>
-											<label for="passwordc">Confirmar Contraseña:</label>
-											<input name="passwordc"  type="text" required/>	
-										</li>		
-										<li>
-										<input type=hidden value="'.$id.'" name="idUser">
-										<button class="submit" type="submit">Actualizar Contraseña</button>
-										</li>																														
-									<ul>
-								</form>';
-							}
-							else{
-								echo'
-								<h1>Usuario no Encontrado</h1>';
-							
-							}						
-						}
 
-					}?>	
+						$ldaphost = "10.200.1.138";  // servidor LDAP
+						$ldapport = 389; 		
+						$user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
+						$pswd = "adminupdate123";
+
+						$ldapconn = ldap_connect($ldaphost, $ldapport)
+							or die("Imposible conectar al servidor $ldaphost");
+				
+						if ($ldapconn) {
+				
+							// Especifico la versión del protocolo LDAP
+							ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3) or die ("Imposible asignar el Protocolo LDAP");
+						
+							// autenticación con usuario
+							$ldapbind = ldap_bind($ldapconn,$user,$pswd);
+				
+				
+							if ($ldapbind) {
+
+								$enviado = $_POST["enviado"];
+								$login = $_POST["login"];
+								$codigo = $_POST["codigo"];
+								$noDoc = $_POST["noDoc"];
+										
+								if ($enviado == 1)
+								{							
+									$dn_consulta = "dc=unicauca,dc=edu,dc=co";
+									$filter = "(uid=".$login.")";
+									$result = ldap_search($ldapconn,$dn_consulta,$filter) or exit("Unable to search");
+									$entries = ldap_get_entries($ldapconn, $result);
+					
+									$password = $entries[0]["userpassword"][0];								
+									$nombre = $entries[0]["givenname"][0];
+									$apellidos = $entries[0]["sn"][0];
+									$uid =$entries[0]["uid"][0] ;	
+
+										echo '
+										<form name="contact_form" class="contact_form" action="../funtions/cambiarPassword.php" method="post">
+											<ul>
+												<li>
+													<h2>USUARIO A MODIFICAR CONTRASEÑA</h2>
+												</li>	
+												<li>
+													<label for="nombre">Nombre:</label>
+													<input name="nombre" readonly="readonly" value="'.$nombre.'" " type="text" required/>	
+												</li>
+												<li>
+													<label for="apellidos">Apellidos:</label>
+													<input name="apellidos"readonly="readonly"  value="'.$apellidos.'" " type="text" required/>	
+												</li>	
+												<li>
+													<label for="password">Contraseña:</label>
+													<input name="password" value="'.$password.'" " type="text" required/>	
+												</li>		
+												<li>
+													<label for="passwordc">Confirmar Contraseña:</label>
+													<input name="passwordc"  type="text" required/>	
+												</li>		
+												<li>
+												<input type=hidden value="'.$uid.'" name="uid">
+												<button class="submit" type="submit">Actualizar Contraseña</button>
+												</li>																														
+											<ul>
+										</form>';
+									}
+									else{
+										echo'
+										<h1>Usuario no Encontrado</h1>';
+									
+									}
+								}						
+							}
+						}?>	
 				</div>
 			</div>
 		</div>

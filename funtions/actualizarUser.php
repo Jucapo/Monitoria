@@ -3,59 +3,56 @@
 /*********Modulo para Actualizar Usuarios***********/
 
   //Variables con las que se creeara el nuevo Usuario
-  $id = $_POST["idUser"];
-  $login = $_POST["login"];
+  $uid = $_POST["uid"];
   $noDoc = $_POST["noDoc"];
-  $password = $_POST["password"];
-  $password2 = $_POST["password2"];
-  $tipoUsuario = $_POST["tipoUsuario"];
   $nombre = $_POST["nombre"];
   $apellidos = $_POST["apellidos"];
-  $codigo = $_POST["codigo"];
-  $tipoDoc= $_POST["tipoDoc"];
-  $fechaNac = $_POST["fechaNac"];
-  $sexo = $_POST["sexo"];
-  $pais = $_POST["pais"];
-  $departamento = $_POST["departamento"];
   $municipio = $_POST["municipio"];
   $direccion = $_POST["direccion"];
   $emailAlt = $_POST["emailAlt"];
-  $estadoCivil = $_POST["estadoCivil"];
-  $oficina = $_POST["oficina"];
   $telefono = $_POST["telefono"];
 
-  //Insertar datos en la Base de Datos
-  include ("../conexion.php");
-  $mysqli = new mysqli($host, $user, $pw, $db);    
+ //Agente que modifica 
+ $ldaphost = "10.200.1.138";  // servidor LDAP
+ $ldapport = 389; 		
+ $user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
+ $pswd = "adminupdate123";
 
 
-  $sql = "UPDATE usuarios SET 
-            login = '$login',
-            noDoc = '$noDoc',
-            tipoUsuario = '$tipoUsuario',
-            nombre = '$nombre',
-            apellidos = '$apellidos',
-            codigo = '$codigo',
-            tipoDoc ='$tipoDoc',
-            fechaNac = '$fechaNac',
-            sexo =  '$sexo',
-            pais = '$pais',
-            departamento = '$departamento',
-            municipio = '$municipio',
-            direccion = '$direccion',
-            emailAlt = '$emailAlt',
-            estadoCivil = '$estadoCivil',
-            oficina = '$oficina',
-            telefono= '$telefono'
-         WHERE (id = '$id')";
+ $ldapconn = ldap_connect($ldaphost, $ldapport)
+     or die("Imposible conectar al servidor $ldaphost");
 
-  $result = $mysqli->query($sql);
+ if ($ldapconn) {
 
-  //Verificacion 
-  if ($result){
-    header("Location: ../pages/agente.php?mensaje=5");
-  }
-  else   
-    header("Location: ../pages/agente.php?mensaje=6");
+     ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3)
+         or die ("Imposible asignar el Protocolo LDAP");
+     
+     $ldapbind = ldap_bind($ldapconn,$user,$pswd);
+
+     if ($ldapbind) {
+         //echo "LDAP bind successful...";
+         
+         $dn = "uid=".$uid.",ou=Pregrado,ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+
+         $info["givenname"] = $nombre; 
+         $info["sn"] = $apellidos;         
+         $info["employeenumber"] = $noDoc;          
+         $info["l"] = $municipio;                 
+         $info["street"] = $direccion; 
+         $info["mailalternateaddress"] = $emailAlt; 
+         $info["mobile"] = $telefono; 
+         $info["gecos"] =  $nombre." ".$apellidos; // Nombre completo
+         $info["cn"] =  $nombre." ".$apellidos; // Nombre completo
+
+         $add = ldap_modify($ldapconn, $dn, $info);
+
+         //Verificacion
+         if ($add){
+             header("Location: ../pages/agente.php?mensaje=5");
+             }
+             else   
+             header("Location: ../pages/agente.php?mensaje=6");
+     }
+ }
 
 ?>

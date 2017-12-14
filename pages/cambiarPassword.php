@@ -49,7 +49,7 @@
 									<label for="login">Login:</label>
 									<input name="login" placeholder="Login" type="text" />
 								</li>
-								<!-- <li>
+								<li>
 									<label for="codigo">Codigo:</label>
 									<input name="codigo" placeholder="Codigo" type="text"  />																
 								</li>							
@@ -60,7 +60,7 @@
 								<li>
 									<input type=hidden value="1" name="enviado">
 									<button class="submit" type="submit" >Buscar</button>
-								</li> -->
+								</li>
 							</ul>
 						</form>	
 						<?php

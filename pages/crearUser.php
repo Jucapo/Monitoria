@@ -56,16 +56,16 @@ if ($_SESSION["autenticado"] != "SI")
 									<option value="Pregrado">Estudiante pregrado</option>
 									<option value="Posgrado">Estudiante posgrado</option>
 									<option value="Egresados">Egresado</option>
-									<option value="Docente">Docente</option>
-									<option value="Funcionario">Funcionario</option>
+									<option value="Docentes">Docente</option>
+									<option value="Funcionarios Pensionados">Funcionario</option>
 									<option value="PensionadoF">Funcionario pensionado</option>
-									<option value="Contratista">Contratista</option>
-									<option value="GruposI">Grupo Investigacion</option>
-									<option value="GruposA">Grupo Actividades</option>
-									<option value="Dependancia">Dependancia</option>
-									<option value="Evento">Eventos</option>
-									<option value="Adscritas">Entidad Adscrita</option>
-									<option value="Especial">Caso Especial</option>									
+									<option value="Contratistas">Contratista</option>
+									<option value="Grupo de Investigacion">Grupo Investigacion</option>
+									<option value="Grupo de Actividades">Grupo Actividades</option>
+									<option value="Dependancias">Dependancia</option>
+									<option value="Eventos">Eventos</option>
+									<option value="Entidades Adscritas">Entidad Adscrita</option>
+									<option value="Especiales">Caso Especial</option>									
 								</select>
 							</li>
 							<li>

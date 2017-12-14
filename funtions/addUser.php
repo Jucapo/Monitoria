@@ -44,7 +44,13 @@
             //echo "LDAP bind successful...";
             
             //Ruta del directorio del  usuario que se agrega
-            $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+            if($tipoUsuario=="Pregrado" || $tipoUsuario=="Posgrado" ){
+                $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+            }
+            else {
+                $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+            }
+
             
             //ObjectClass
             $info["objectClass"][0] = "inetLocalMailRecipient";
@@ -67,25 +73,25 @@
                 $info["gidNumber"] = "30001"; 
             elseif ($tipoUsuario == "Egresados") 
                 $info["gidNumber"] = "30002";     
-            elseif ($tipoUsuario == "Funcionario") 
+            elseif ($tipoUsuario == "Funcionarios") 
                 $info["gidNumber"] = "30003";
-            elseif ($tipoUsuario == "Contratista") 
+            elseif ($tipoUsuario == "Contratistas") 
                 $info["gidNumber"] = "30004";
-            elseif ($tipoUsuario == "Docente") 
+            elseif ($tipoUsuario == "Docentes") 
                 $info["gidNumber"] = "30005";
-            elseif ($tipoUsuario == "GruposI") 
+            elseif ($tipoUsuario == "Grupo de Investigacion") 
                 $info["gidNumber"] = "30006";
-            elseif ($tipoUsuario == "GruposA") 
+            elseif ($tipoUsuario == "Grupo de Actividades") 
                 $info["gidNumber"] = "30007";
-            elseif ($tipoUsuario == "Dependancia") 
+            elseif ($tipoUsuario == "Dependancias") 
                 $info["gidNumber"] = "30008";
-            elseif ($tipoUsuario == "Evento") 
+            elseif ($tipoUsuario == "Eventos") 
                 $info["gidNumber"] = "30009";
-            elseif ($tipoUsuario == "Adscritas") 
+            elseif ($tipoUsuario == "Entidades Adscritas") 
                 $info["gidNumber"] = "30010";
-            elseif ($tipoUsuario == "Especial") 
+            elseif ($tipoUsuario == "Especiales") 
                 $info["gidNumber"] = "30011";
-            elseif ($tipoUsuario == "PensionadoF") 
+            elseif ($tipoUsuario == "Funcionarios Pensionados") 
                 $info["gidNumber"] = "30013";
         
             if($tipoUsuario == "Pregrado" ||$tipoUsuario == "Posgrado" )

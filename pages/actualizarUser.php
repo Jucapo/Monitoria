@@ -50,7 +50,7 @@
 										<label for="login">Login:</label>
 										<input name="login" placeholder="Login" type="text" />
 									</li>
-									<!-- <li>
+									<li>
 										<label for="codigo">Codigo:</label>
 										<input name="codigo" placeholder="Codigo" type="text"  />																
 									</li>							
@@ -58,7 +58,7 @@
 										<label for="noDoc">Documento:</label>
 										<input name="noDoc" placeholder="numero de documento"  type="number" />
 									</li>
-									<li> -->
+									<li>
 										<input type=hidden value="1" name="enviado">
 										<button class="submit" type="submit" >Buscar</button>
 									</li>

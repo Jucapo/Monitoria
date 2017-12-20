@@ -1,6 +1,9 @@
 <?php
 /*********Modulo para Actualizar Contraseña***********/
 
+    include ("../usuario.php");
+    include ("../conexion.php"); 
+
     //Variables de usuario y contraseña
     $uid = $_POST["uid"];
     $password = $_POST["password"];
@@ -30,12 +33,28 @@
             $info["userpassword"] = $password; // Tipo de usuario       
             $add = ldap_modify($ldapconn, $dn, $info);
 
-            //Verificacion
-            if ($add){
-                header("Location: ../pages/agente.php?mensaje=3");
-                }
-                else   
-                header("Location: ../pages/agente.php?mensaje=4");
+          //Verificacion
+          if ($add){ //Se modifico usuario correctamente 
+             
+            $mysqli = new mysqli($host, $userB, $pw, $db);    
+            
+            $sql = "INSERT INTO modificacionpass(login, fecha, hora, ip, correcto)
+                     VALUES  ('$login',CURDATE(),CURTIME(),'$ip','1' )";
+            
+            $result = $mysqli->query($sql);
+            
+            header("Location: ../pages/agente.php?mensaje=3");              
+            }
+            else {  //Error al modificar usuario
+                $mysqli = new mysqli($host, $userB, $pw, $db);
+
+                $sql = "INSERT INTO modificacionpass( login, fecha, hora, ip, correcto)
+                         VALUES  ('$login',CURDATE(),CURTIME(),'$ip','0' )";
+
+                $result = $mysqli->query($sql);    
+
+                header("Location: ../pages/agente.php?mensaje=4");              
+            }
         }
     }
 

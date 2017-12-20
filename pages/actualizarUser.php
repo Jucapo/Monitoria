@@ -107,6 +107,7 @@
 										$direccion = $entries[0]["street"][0];
 										$emailAlt = $entries[0]["mailalternateaddress"][0];
 										$telefono = $entries[0]["mobile"][0];
+										$tipoUsuario = $entries[0]["employeetype"][0];
 										
 										echo '
 										<form name="contact_form" class="contact_form" action="../funtions/actualizarUser.php" method="post">
@@ -149,6 +150,7 @@
 												<input name="telefono" value="'.$telefono.'" type="number" required  />
 											</li>	
 											<li>
+												<input type=hidden value="'.$tipoUsuario.'" name="tipoUsuario">
 												<input type=hidden value="'.$uid.'" name="uid">
 												<button class="submit" type="submit">Actualizar Usuario</button>
 											</li>																																

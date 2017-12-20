@@ -1,6 +1,8 @@
 <?php
 
 /*********Modulo para Actualizar Usuarios***********/
+    include ("../usuario.php");
+    include ("../conexion.php");
 
   //Variables con las que se creeara el nuevo Usuario
   $uid = $_POST["uid"];
@@ -11,13 +13,7 @@
   $direccion = $_POST["direccion"];
   $emailAlt = $_POST["emailAlt"];
   $telefono = $_POST["telefono"];
-
- //Agente que modifica 
- $ldaphost = "10.200.1.138";  // servidor LDAP
- $ldapport = 389; 		
- $user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
- $pswd = "adminupdate123";
-
+  $tipoUsuario = $_POST["tipoUsuario"];
 
  $ldapconn = ldap_connect($ldaphost, $ldapport)
      or die("Imposible conectar al servidor $ldaphost");
@@ -32,7 +28,13 @@
      if ($ldapbind) {
          //echo "LDAP bind successful...";
          
-         $dn = "uid=".$uid.",ou=Pregrado,ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+         if($tipoUsuario=="Pregrado" || $tipoUsuario=="Posgrado" ){
+            $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Estudiantes,ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+        }
+        else {
+            $dn = "uid=".$uid.",ou=".$tipoUsuario.",ou=Usuarios,dc=unicauca,dc=edu,dc=co";
+        }
+
 
          $info["givenname"] = $nombre; 
          $info["sn"] = $apellidos;         
@@ -48,11 +50,28 @@
 
          //Verificacion
          if ($add){
+            $mysqli = new mysqli($host, $userB, $pw, $db);    
+            
+            $sql = "INSERT INTO modificacion(login, fecha, hora, ip, correcto)
+                     VALUES  ('$login',CURDATE(),CURTIME(),'$ip','1' )";
+            
+            $result = $mysqli->query($sql);
              header("Location: ../pages/agente.php?mensaje=5");
-             }
-             else   
-             header("Location: ../pages/agente.php?mensaje=6");
-     }
+        }
+        else  {
+            $mysqli = new mysqli($host, $userB, $pw, $db);
+            
+            $sql = "INSERT INTO modificacion( login, fecha, hora, ip, correcto)
+                        VALUES  ('$login',CURDATE(),CURTIME(),'$ip','0' )";
+
+            $result = $mysqli->query($sql);
+
+            header("Location: ../pages/agente.php?mensaje=6");
+        } 
+             
+     }else {
+        echo "LDAP bind anonymous failed...";
+    }
  }
 
 ?>

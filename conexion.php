@@ -1,6 +1,6 @@
 <?php
     $host = "localhost";
-    $user = "root";
+    $userB = "root";
     $pw = "";
     $db = "monitoria";
 ?>

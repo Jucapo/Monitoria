@@ -15,7 +15,7 @@
 		<h1>INICIAR SESION</h1>
 			<form method="POST" action="validar.php">
 			<input type="text" name="login" placeholder="Usuario" />
-			<input type="password" name="password" placeholder="Contraseña" />
+			<input type="password" name="pswd" placeholder="Contraseña" />
 			<button class="btn btn-primary btn-block btn-large" type="submit">Iniciar Sesion</button>
 		</form>
 	</div>

@@ -1,8 +1,7 @@
 <?php
 
-
 $login = $_POST["login"];
-$password = $_POST["password"];
+$pswd = $_POST["pswd"];
 
 session_start();
 
@@ -10,8 +9,7 @@ session_start();
     $ldapport = 389;            // puerto del servidor LDAP
 
     $user = "cn=".$login.",dc=unicauca,dc=edu,dc=co";
-    $pswd = $password;
-
+  
     // Conexión al servidor LDAP
     $ldapconn = ldap_connect($ldaphost, $ldapport)
         or die("Imposible conectar al servidor $ldaphost");
@@ -27,7 +25,10 @@ session_start();
 
 
         if ($ldapbind) {         
-            header("Location: pages/agente.php");	                    
+            $_SESSION["login"] = $login;     
+            $_SESSION["pswd"] = $pswd; 
+            header("Location: pages/agente.php");
+
         } 
         else{
             header('Location: index.php?mensaje=2');

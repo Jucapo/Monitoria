@@ -10,7 +10,7 @@ if ($_SESSION["autenticado"] != "SI")
 
 <html>
 	<head>
-		<title>ADMINISTRADOR UNICAUCA</title>
+		<title>Graficos Administrador</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>	
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
@@ -32,11 +32,11 @@ if ($_SESSION["autenticado"] != "SI")
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active"><a href="admin.php">Administrador</a></li>
+						<li><a href="admin.php">Administrador</a></li>
 						<li><a href="crearUser_admin.php">Crear Usuario</a></li>
 						<li><a href="actualizarUser_admin.php">Modificar Usuario</a></li>
                         <li><a href="cambiarPassword_admin.php">Cambiar Contraseña</a></li>
-                        <li><a href="graficos_admin.php">Graficos</a></li>
+                        <li class="active"><a href="graficos_admin.php">Graficos</a></li>
 					</ul>
 				</nav>
 
@@ -44,33 +44,8 @@ if ($_SESSION["autenticado"] != "SI")
 		</div>
 		<div id="featured">
 			<div class="container">
-				<div class="titulo">		
-					uid:<?php echo " ".$uidLogin  ?>	
-					<br></br>
-					Nombre:<?php echo " ".$nombreLogin  ?>	
-					<br></br>
-					Apellido:<?php echo " ".$apellidoLogin  ?>	
+				
 
-					<?php
-						if (isset($_GET["mensaje"])){
-						$mensaje = $_GET["mensaje"];
-						if ($_GET["mensaje"]!=""){              
-							if ($mensaje == 1)
-								echo "<h1>USUARIO REGISTRADO CORRECTAMENTE</h1>";
-							if ($mensaje == 2)
-								echo "<h1>ERROR AL REGISTRAR USUARIO</h1>";
-							if ($mensaje == 3)
-								echo "<h1>CONTRASEÑA ACTUALIZADA CORRECTAMENTE</h1>";
-							if ($mensaje == 4)
-								echo "<h1>ERROR AL ACTUALIZAR CONTRASEÑA</h1>";
-							if ($mensaje == 5)
-								echo "<h1>USUARIO ACTUALIZADO CORRECTAMENTE</h1>";
-							if ($mensaje == 6)
-								echo "<h1>ERROR AL ACTUALIZAR USUARIO</h1>";	
-						}	
-						}
-					?>		
-				</div>
 			</div>
 		</div>
 		

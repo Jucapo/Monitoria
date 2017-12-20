@@ -5,6 +5,9 @@ session_start();
     //Variables de usuario y contraseña
     $login = $_SESSION["login"];
     $pswd = $_SESSION["pswd"];
+    $uidLogin = $_SESSION["uidLogin"];
+    $nombreLogin = $_SESSION["nombre"];
+    $apellidoLogin = $_SESSION["apellido"];
     $ip = "192.168.99.8";
 
     //Agente que modifica 

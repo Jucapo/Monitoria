@@ -1,7 +1,9 @@
-<?php                                                   
-session_start();
+<?php     
+include("../usuario.php");                                              
+
 if ($_SESSION["autenticado"] != "SI")
-    header('Location: ../index.php?mensaje=3');
+	header('Location: ../index.php?mensaje=3');
+	
 ?>  
 
 <!DOCTYPE HTML>
@@ -13,6 +15,7 @@ if ($_SESSION["autenticado"] != "SI")
 		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>	
         <link rel="stylesheet" href="../styles/skel-noscript.css" />
         <link rel="stylesheet" href="../styles/style.css" />
+		<link rel="stylesheet" href="../styles/perfil.css" />
 	</head>
 
 	<body class="homepage">
@@ -42,27 +45,31 @@ if ($_SESSION["autenticado"] != "SI")
 
 		<div id="featured">
 			<div class="container">
-				<div text-center>		
+				<div class="titulo">		
+					uid:<?php echo " ".$uidLogin  ?>	
+					<br></br>
+					Nombre:<?php echo " ".$nombreLogin  ?>	
+					<br></br>
+					Apellido:<?php echo " ".$apellidoLogin  ?>	
 
-				<?php
-				if (isset($_GET["mensaje"])){
-				$mensaje = $_GET["mensaje"];
-				if ($_GET["mensaje"]!=""){              
-					if ($mensaje == 1)
-						echo "<h1>USUARIO REGISTRADO CORRECTAMENTE</h1>";
-					if ($mensaje == 2)
-						echo "<h1>ERROR AL REGISTRAR USUARIO</h1>";
-					if ($mensaje == 3)
-						echo "<h1>CONTRASEÑA ACTUALIZADA CORRECTAMENTE</h1>";
-					if ($mensaje == 4)
-						echo "<h1>ERROR AL ACTUALIZAR CONTRASEÑA</h1>";
-					if ($mensaje == 5)
-						echo "<h1>USUARIO ACTUALIZADO CORRECTAMENTE</h1>";
-					if ($mensaje == 6)
-						echo "<h1>ERROR AL ACTUALIZAR USUARIO</h1>";
-	
-				}	
-				}
+					<?php
+						if (isset($_GET["mensaje"])){
+						$mensaje = $_GET["mensaje"];
+						if ($_GET["mensaje"]!=""){              
+							if ($mensaje == 1)
+								echo "<h1>USUARIO REGISTRADO CORRECTAMENTE</h1>";
+							if ($mensaje == 2)
+								echo "<h1>ERROR AL REGISTRAR USUARIO</h1>";
+							if ($mensaje == 3)
+								echo "<h1>CONTRASEÑA ACTUALIZADA CORRECTAMENTE</h1>";
+							if ($mensaje == 4)
+								echo "<h1>ERROR AL ACTUALIZAR CONTRASEÑA</h1>";
+							if ($mensaje == 5)
+								echo "<h1>USUARIO ACTUALIZADO CORRECTAMENTE</h1>";
+							if ($mensaje == 6)
+								echo "<h1>ERROR AL ACTUALIZAR USUARIO</h1>";	
+						}	
+						}
 					?>		
 				</div>
 			</div>

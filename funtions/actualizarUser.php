@@ -52,8 +52,8 @@
          if ($add){
             $mysqli = new mysqli($host, $userB, $pw, $db);    
             
-            $sql = "INSERT INTO modificacion(login, fecha, hora, ip, correcto)
-                     VALUES  ('$login',CURDATE(),CURTIME(),'$ip','1' )";
+            $sql = "INSERT INTO modificacion(login, fecha, hora, ip, correcto, uid_modificado)
+                     VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','1', '$uid')";
             
             $result = $mysqli->query($sql);
              header("Location: ../pages/agente.php?mensaje=5");
@@ -61,8 +61,8 @@
         else  {
             $mysqli = new mysqli($host, $userB, $pw, $db);
             
-            $sql = "INSERT INTO modificacion( login, fecha, hora, ip, correcto)
-                        VALUES  ('$login',CURDATE(),CURTIME(),'$ip','0' )";
+            $sql = "INSERT INTO modificacion( login, fecha, hora, ip, correcto, uid_modificado)
+                        VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','0', '$uid'  )";
 
             $result = $mysqli->query($sql);
 

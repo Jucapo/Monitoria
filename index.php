@@ -25,9 +25,11 @@
 	$mensaje = $_GET["mensaje"];
 	if ($_GET["mensaje"]!=""){              
 		if ($mensaje == 1)
-			echo "<h1>Error de Conexión</h1>";
+			echo "<h1>Login no se encuentra registrado</h1>";
 		if ($mensaje == 2)
-			echo " <h1>Usuario o Contraseña Incorrecta.</h1>";
+			echo " <h1>Contraseña Incorrecta.</h1>";
+		if ($mensaje == 2)
+			echo " <h1>DEBE INICIAR SESION PARA ACCEDER.</h1>";
 	}
 	}
 	?>

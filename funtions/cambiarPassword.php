@@ -8,14 +8,6 @@
     $uid = $_POST["uid"];
     $password = $_POST["password"];
 
-
-    //Agente que modifica 
-    $ldaphost = "10.200.1.138";  // servidor LDAP
-    $ldapport = 389; 		
-    $user = "cn=ADMINUP,dc=unicauca,dc=edu,dc=co";
-    $pswd = "adminupdate123";
-
-
     $ldapconn = ldap_connect($ldaphost, $ldapport)
         or die("Imposible conectar al servidor $ldaphost");
 
@@ -38,8 +30,8 @@
              
             $mysqli = new mysqli($host, $userB, $pw, $db);    
             
-            $sql = "INSERT INTO modificacionpass(login, fecha, hora, ip, correcto)
-                     VALUES  ('$login',CURDATE(),CURTIME(),'$ip','1' )";
+            $sql = "INSERT INTO modificacionpass(login, fecha, hora, ip, correcto, uid_modificado)
+                     VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','1' ,'$uid' )";
             
             $result = $mysqli->query($sql);
             
@@ -48,8 +40,8 @@
             else {  //Error al modificar usuario
                 $mysqli = new mysqli($host, $userB, $pw, $db);
 
-                $sql = "INSERT INTO modificacionpass( login, fecha, hora, ip, correcto)
-                         VALUES  ('$login',CURDATE(),CURTIME(),'$ip','0' )";
+                $sql = "INSERT INTO modificacionpass( login, fecha, hora, ip, correcto, uid_modificado)
+                         VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','0' ,'$uid' )";
 
                 $result = $mysqli->query($sql);    
 

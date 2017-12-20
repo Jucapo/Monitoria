@@ -1,35 +1,39 @@
 <?php
+    session_start();
 
-$login = $_POST["login"];
-$pswd = $_POST["pswd"];
+    include ("conexion.php");
 
-session_start();
+    $login = $_POST["login"];
+    $pswd = $_POST["pswd"];
 
-    $ldaphost = "10.200.1.138";  // servidor LDAP
-    $ldapport = 389;            // puerto del servidor LDAP
+    $mysqli = new mysqli($host, $userB, $pw, $db);  
+    $sql = "SELECT * from perfiles where uid = '$login'";
+    $result = $mysqli->query($sql);
+    $row = $result->fetch_array(MYSQLI_NUM);
+    $numero_filas = $result->num_rows;
 
-    $user = "cn=".$login.",dc=unicauca,dc=edu,dc=co";
-  
-    // Conexión al servidor LDAP
-    $ldapconn = ldap_connect($ldaphost, $ldapport)
-        or die("Imposible conectar al servidor $ldaphost");
-
-    if ($ldapconn) {
-
-        // Especifico la versión del protocolo LDAP
-        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3)
-            or die ("Imposible asignar el Protocolo LDAP");
-        
-        // autenticación con usuario
-        $ldapbind = ldap_bind($ldapconn,$user,$pswd);
-
-
-        if ($ldapbind) {         
-            $_SESSION["login"] = $login;     
-            $_SESSION["pswd"] = $pswd; 
-            header("Location: pages/agente.php");
-
-        } 
+    if ($numero_filas > 0)
+    {
+        $cargo = $row[1];
+        $uidLogin = $row[2]; 
+        $pswLogin = $row[3]; 
+        $nombre  = $row[4];
+        $apellido  = $row[5];
+      
+        if($pswLogin == $pswd){
+            $_SESSION["login"] = "ADMINUP";     
+            $_SESSION["pswd"] =  "adminupdate123"; 
+            $_SESSION["uidLogin"] = $uidLogin;
+            $_SESSION["nombre"] = $nombre;
+            $_SESSION["apellido"] = $apellido;
+            $_SESSION["autenticado"] ="SI";
+            if($cargo == "admin"){
+                header("Location: pages/admin.php");
+            }
+            else {
+                header("Location: pages/agente.php");
+            }        
+        }
         else{
             header('Location: index.php?mensaje=2');
         }
@@ -37,6 +41,4 @@ session_start();
     else {
         header('Location: index.php?mensaje=1');
     }
-
-
 ?>

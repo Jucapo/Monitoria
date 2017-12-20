@@ -5,7 +5,6 @@
 
 /*********Modulo para la Creacion de  nuevos Usuarios LDAP***********/
 
-
     // ATRIBUTOS DEL FORMULARIO
 
     $uid = $_POST["login"];
@@ -124,16 +123,16 @@
             if ($add){
 
                 $mysqli = new mysqli($host, $userB, $pw, $db);                    
-                $sql = "INSERT INTO registro(login, fecha, hora, ip, correcto)
-                         VALUES  ('$login',CURDATE(),CURTIME(),'$ip','1' )";             
+                $sql = "INSERT INTO registro(login, fecha, hora, ip, correcto, uid_creado)
+                         VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','1', '$uid' )";             
                 $result = $mysqli->query($sql);
                 header("Location: ../pages/agente.php?mensaje=1");
               }
               else{
                 $mysqli = new mysqli($host, $userB, $pw, $db);
                 
-                $sql = "INSERT INTO registro( login, fecha, hora, ip, correcto)
-                            VALUES  ('$login',CURDATE(),CURTIME(),'$ip','0' )";
+                $sql = "INSERT INTO registro( login, fecha, hora, ip, correcto, uid_creado)
+                            VALUES  ('$uidLogin',CURDATE(),CURTIME(),'$ip','0', '$uid' )";
 
                 $result = $mysqli->query($sql);
 
